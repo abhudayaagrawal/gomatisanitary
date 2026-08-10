@@ -43,9 +43,10 @@ redeploys are needed for data changes; the site fetches live from this URL.
 - **Add a new product with a photo** (Insert → Image → Insert image in cell)
   → click **Sync Now** on the website. New codes are re-hosted to a Drive
   folder called "GMT Brochure - Web Images" (created automatically) the
-  moment they're first seen — up to 20 new photos per click, so bulk-adding
-  many products may take a few clicks in a row (or use the menu option below
-  to catch them all up in one go).
+  moment they're first seen — up to 8 new photos per click (kept small so a
+  single sync can't take too long), so bulk-adding many products may take a
+  few clicks in a row (or use the menu option below to catch them all up in
+  one go).
 - **Replace the photo on an existing product** (same code, new picture) →
   "Sync Now" will *not* pick this up on its own — to keep every sync fast
   regardless of catalogue size, it only checks codes it's never seen before.

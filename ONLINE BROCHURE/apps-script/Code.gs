@@ -16,7 +16,12 @@
 var SHEET_NAME = 'MASTER';
 var IMAGE_CACHE_SHEET_NAME = '_ImageCache';
 var IMAGE_FOLDER_NAME = 'GMT Brochure - Web Images';
-var MAX_NEW_IMAGES_PER_CALL = 20;
+// Kept small because each new image requires a network fetch (UrlFetchApp
+// has no configurable timeout in Apps Script, and can occasionally take a
+// long time on a single slow/large image) — a smaller cap bounds how long
+// any one "Sync Now" call can possibly take, at the cost of needing a few
+// more clicks to fully backfill a large catalogue.
+var MAX_NEW_IMAGES_PER_CALL = 8;
 
 var COLUMN_ALIASES = {
   code: ['CODE'],

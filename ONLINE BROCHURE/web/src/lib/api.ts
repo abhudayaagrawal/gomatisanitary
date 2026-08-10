@@ -1,6 +1,7 @@
 import type { CatalogueResponse } from '../types';
 
 const CACHE_KEY = 'gmt_catalogue_cache_v1';
+const SYNC_TIMEOUT_MS = 20000;
 
 // Falls back to local mock data (public/mock-products.json) when no live
 // Apps Script endpoint is configured yet, so the UI can be built/tested
@@ -18,7 +19,21 @@ export function loadCachedCatalogue(): CatalogueResponse | null {
 }
 
 export async function syncCatalogue(): Promise<CatalogueResponse> {
-  const response = await fetch(API_URL, { cache: 'no-store' });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), SYNC_TIMEOUT_MS);
+
+  let response: Response;
+  try {
+    response = await fetch(API_URL, { cache: 'no-store', signal: controller.signal });
+  } catch (err) {
+    if (err instanceof DOMException && err.name === 'AbortError') {
+      throw new Error('Sync timed out — the server is processing new images, try again in a moment.');
+    }
+    throw err;
+  } finally {
+    clearTimeout(timeout);
+  }
+
   if (!response.ok) {
     throw new Error(`Sync failed: ${response.status} ${response.statusText}`);
   }
