@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-08-09T00:00:00.000Z",
+  "products": [
+    { "code": "CH037", "name": "2 IN 1 ANGLE COCK CHINESE", "unit": "PCS", "group": "2 IN 1 ANGLE COCK", "subgroup": "CHINESE 2 IN 1 ANGLE COCK", "material": "ZINC", "qtyPerCarton": "200", "qtyPerBox": "2", "otherInfo": "", "imageUrl": "" },
+    { "code": "CH037D", "name": "2 IN 1 ANGLE COCK CHINESE DELUXE", "unit": "PCS", "group": "2 IN 1 ANGLE COCK", "subgroup": "CHINESE 2 IN 1 ANGLE COCK", "material": "SS", "qtyPerCarton": "120", "qtyPerBox": "2", "otherInfo": "280g", "imageUrl": "" },
+    { "code": "TINAV30", "name": "2 IN 1 ANGLE COCK TURBO INDIAN BRASS", "unit": "PCS", "group": "2 IN 1 ANGLE COCK", "subgroup": "INDIAN 2 IN 1 ANGLE COCK", "material": "BRASS", "qtyPerCarton": "200", "qtyPerBox": "", "otherInfo": "292g", "imageUrl": "" },
+    { "code": "AVG01", "name": "ANGLE COCK GOLD", "unit": "PCS", "group": "ANGLE VALVE", "subgroup": "CHINESE ANGLE VALVE", "material": "SS", "qtyPerCarton": "100", "qtyPerBox": "1", "otherInfo": "191g", "imageUrl": "" },
+    { "code": "AVB01", "name": "ANGLE COCK BLACK", "unit": "PCS", "group": "ANGLE VALVE", "subgroup": "CHINESE ANGLE VALVE", "material": "SS", "qtyPerCarton": "100", "qtyPerBox": "1", "otherInfo": "191g", "imageUrl": "" },
+    { "code": "AN002", "name": "ANGEL COCK ARYA ORION", "unit": "PCS", "group": "ANGLE VALVE", "subgroup": "INDIAN ANGLE VALVE", "material": "BRASS", "qtyPerCarton": "300", "qtyPerBox": "5", "otherInfo": "184g", "imageUrl": "" },
+    { "code": "YCB007SM", "name": "SS ROUND ARM 7\"", "unit": "PCS", "group": "SHOWER ARM", "subgroup": "ROUND ARM", "material": "SS", "qtyPerCarton": "200", "qtyPerBox": "25", "otherInfo": "", "imageUrl": "" },
+    { "code": "YCB011", "name": "SS SQUARE ARM 12\"", "unit": "PCS", "group": "SHOWER ARM", "subgroup": "CHINESE SQUARE ARM", "material": "SS", "qtyPerCarton": "50", "qtyPerBox": "1", "otherInfo": "", "imageUrl": "" },
+    { "code": "AG001", "name": "BALL COCK 1/2\" INDIAN BRASS", "unit": "PCS", "group": "BALL COCK", "subgroup": "BRASS BALL COCK", "material": "BRASS", "qtyPerCarton": "300", "qtyPerBox": "2", "otherInfo": "", "imageUrl": "" },
+    { "code": "YCC031", "name": "SS BALL COCK SET 1/2\"", "unit": "PCS", "group": "BALL COCK", "subgroup": "SS BALL COCK", "material": "SS", "qtyPerCarton": "60", "qtyPerBox": "2", "otherInfo": "200g", "imageUrl": "" },
+    { "code": "YXU001", "name": "BALL VALVE 1/2\" CHINESE BRASS", "unit": "PCS", "group": "BALL VALVE", "subgroup": "CHINESE BRASS BALL VALVE", "material": "BRASS", "qtyPerCarton": "150", "qtyPerBox": "10", "otherInfo": "150g", "imageUrl": "" },
+    { "code": "YCC014", "name": "BALL VALVE 2\" CHINESE BRASS", "unit": "PCS", "group": "BALL VALVE", "subgroup": "CHINESE BRASS BALL VALVE", "material": "BRASS", "qtyPerCarton": "20", "qtyPerBox": "2", "otherInfo": "1100g", "imageUrl": "" }
+  ],
+  "meta": { "imagesProcessedThisRun": 0 }
+}

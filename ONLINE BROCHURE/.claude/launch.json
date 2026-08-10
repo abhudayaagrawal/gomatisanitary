@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-dev",
+      "runtimeExecutable": "C:\\Users\\Abhudaya Agrawal\\CLAUDE CODE PROJECTS\\ONLINE BROCHURE\\dev-server.cmd",
+      "runtimeArgs": [],
+      "port": 5173
+    }
+  ]
+}

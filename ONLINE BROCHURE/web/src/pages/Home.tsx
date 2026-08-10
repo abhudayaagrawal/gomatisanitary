@@ -1,0 +1,98 @@
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.jpeg';
+import { BUSINESS } from '../lib/business';
+import './Home.css';
+
+const FEATURES = [
+  {
+    title: 'Wide Product Range',
+    description: 'Angle cocks, valves, shower arms, cisterns and hundreds more sanitary fittings in one place.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Wholesale Pricing',
+    description: 'Bulk carton and box quantities built for retailers, contractors and distributors.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M20 7 12 3 4 7l8 4 8-4Z" />
+        <path d="M4 7v10l8 4 8-4V7" />
+        <path d="M12 11v10" />
+      </svg>
+    ),
+  },
+  {
+    title: `Trusted Since ${BUSINESS.establishedYear}`,
+    description: 'Over a decade supplying quality hardware to businesses across Kathmandu.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z" />
+        <path d="m9 12 2 2 4-4" />
+      </svg>
+    ),
+  },
+];
+
+export default function Home() {
+  return (
+    <div className="home">
+      <section className="hero">
+        <div className="container hero-inner">
+          <div className="hero-copy">
+            <span className="eyebrow">{BUSINESS.tagline}</span>
+            <h1>
+              Quality bathroom fittings, <span className="text-accent-2">supplied in bulk</span>
+            </h1>
+            <p className="hero-lead">
+              {BUSINESS.name} is a Kathmandu-based wholesaler of sanitary hardware and bathroom fittings —
+              angle cocks, valves, shower arms, cisterns and more — for retailers and contractors.
+            </p>
+            <div className="hero-actions">
+              <Link to="/products" className="btn btn-primary">
+                Browse Products
+              </Link>
+              <Link to="/contact" className="btn btn-secondary">
+                Get in Touch
+              </Link>
+            </div>
+          </div>
+          <div className="hero-media">
+            <div className="hero-logo-card">
+              <img src={logo} alt="Gomati Sanitary logo" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="features">
+        <div className="container features-grid">
+          {FEATURES.map((f) => (
+            <div className="feature-card" key={f.title}>
+              <div className="feature-icon">{f.icon}</div>
+              <h3>{f.title}</h3>
+              <p>{f.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="cta-banner">
+        <div className="container cta-banner-inner">
+          <div>
+            <h2>Looking for a specific product?</h2>
+            <p>Search our full catalogue by code, name, group or subgroup.</p>
+          </div>
+          <Link to="/products" className="btn btn-primary">
+            View Full Catalogue
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
+}
