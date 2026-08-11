@@ -8,13 +8,17 @@
  * See apps-script/DEPLOY.md for the full step-by-step.
  *
  * doPost() handles "Get Catalogue" request-form submissions from the
- * website: saves the submitted ID card photo to Drive, logs the request in
- * a "Catalogue Requests" sheet tab (created automatically), and emails a
- * notification.
+ * website: logs the request in a "Catalogue Requests" sheet tab (created
+ * automatically) and emails a notification with the ID card photo attached.
+ *
+ * Deliberately doesn't touch Drive at all (Apps Script's DriveApp.createFolder
+ * requires the full, account-wide Drive scope no matter how the manifest is
+ * configured — there's no way to narrow it) — emailing the photo as an
+ * attachment instead keeps this script's permissions to just this one sheet
+ * plus send-only email.
  */
 
 var REQUESTS_SHEET_NAME = 'Catalogue Requests';
-var REQUESTS_FOLDER_NAME = 'Gomati Catalogue Requests';
 var NOTIFICATION_EMAIL = 'gomatisanitary@gmail.com';
 
 /**
@@ -28,9 +32,8 @@ function doPost(e) {
   var result = { ok: false };
   try {
     var payload = JSON.parse(e.postData.contents);
-    var driveUrl = saveIdCardImage(payload);
-    logCatalogueRequest(payload, driveUrl);
-    notifyNewRequest(payload, driveUrl);
+    logCatalogueRequest(payload);
+    notifyNewRequest(payload);
     result.ok = true;
   } catch (err) {
     result.error = String(err);
@@ -40,43 +43,7 @@ function doPost(e) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-function saveIdCardImage(payload) {
-  if (!payload.fileBase64) return '';
-  var bytes = Utilities.base64Decode(payload.fileBase64);
-  var blob = Utilities.newBlob(bytes, payload.fileType || 'image/jpeg', payload.fileName || 'id-card');
-  var folder = getOrCreateRequestsFolder();
-  // Intentionally left as private/restricted (default Drive sharing) since
-  // this is a customer's ID document — the business owner can open it fine
-  // while signed into the Google account this script runs as.
-  var file = folder.createFile(blob);
-  file.setName((payload.companyName || 'Unknown') + ' - ' + file.getName());
-  return file.getUrl();
-}
-
-/**
- * Remembers the request-photos folder by ID in this project's Script
- * Properties, rather than searching Drive by name every time. This keeps
- * the script within the narrow "drive.file" OAuth scope (only files/folders
- * it created itself) declared in appsscript.json, instead of needing full
- * access to every file in the account.
- */
-function getOrCreateRequestsFolder() {
-  var props = PropertiesService.getScriptProperties();
-  var folderId = props.getProperty('REQUESTS_FOLDER_ID');
-  if (folderId) {
-    try {
-      return DriveApp.getFolderById(folderId);
-    } catch (err) {
-      // Folder was deleted or otherwise unreachable — fall through and
-      // create a new one below.
-    }
-  }
-  var folder = DriveApp.createFolder(REQUESTS_FOLDER_NAME);
-  props.setProperty('REQUESTS_FOLDER_ID', folder.getId());
-  return folder;
-}
-
-function logCatalogueRequest(payload, driveUrl) {
+function logCatalogueRequest(payload) {
   var ss = SpreadsheetApp.getActive();
   var sheet = ss.getSheetByName(REQUESTS_SHEET_NAME);
   if (!sheet) {
@@ -94,11 +61,11 @@ function logCatalogueRequest(payload, driveUrl) {
     payload.whatsappNumber || '',
     payload.address || '',
     payload.businessDetails || '',
-    driveUrl
+    payload.fileBase64 ? 'Attached to notification email' : '(not attached)'
   ]);
 }
 
-function notifyNewRequest(payload, driveUrl) {
+function notifyNewRequest(payload) {
   var body = [
     'New catalogue request from ' + (payload.companyName || 'Unknown company') + '.',
     '',
@@ -107,7 +74,20 @@ function notifyNewRequest(payload, driveUrl) {
     'WhatsApp number: ' + (payload.whatsappNumber || ''),
     'Address: ' + (payload.address || ''),
     'Business details: ' + (payload.businessDetails || '(not provided)'),
-    'ID card: ' + (driveUrl || '(not attached)')
+    'ID card: ' + (payload.fileBase64 ? 'see attachment' : '(not attached)')
   ].join('\n');
-  MailApp.sendEmail(NOTIFICATION_EMAIL, 'New catalogue request: ' + (payload.companyName || payload.name || ''), body);
+
+  var options = {};
+  if (payload.fileBase64) {
+    var bytes = Utilities.base64Decode(payload.fileBase64);
+    var blob = Utilities.newBlob(bytes, payload.fileType || 'image/jpeg', payload.fileName || 'id-card');
+    options.attachments = [blob];
+  }
+
+  MailApp.sendEmail(
+    NOTIFICATION_EMAIL,
+    'New catalogue request: ' + (payload.companyName || payload.name || ''),
+    body,
+    options
+  );
 }

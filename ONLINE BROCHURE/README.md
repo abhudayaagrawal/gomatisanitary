@@ -9,16 +9,17 @@ A four-page website for Gomati Sanitary: Home, About, Get Catalogue, Contact.
   - **Get Catalogue** — a lead-qualification form (name, contact number,
     company name, address, WhatsApp number, a photo of a Visiting Card or
     PAN Card, and optional business details). The full product catalogue
-    isn't browsable on the site — submissions are saved to Drive/Sheets and
-    emailed to you so your team can follow up and share it directly with
-    verified businesses.
+    isn't browsable on the site — submissions are logged to a sheet and
+    emailed to you (with the ID photo attached) so your team can follow up
+    and share it directly with verified businesses.
   - **Contact** — address/phone/email, embedded Google Map, and a general
     message form (Formspree-backed).
 - `apps-script/Code.gs` — a small Google Apps Script Web App bound to a
   Google Sheet used purely as a request log (independent of any product
-  catalogue data). It handles Get Catalogue submissions: saves the ID card
-  photo to a Drive folder ("Gomati Catalogue Requests"), logs the request in
-  a "Catalogue Requests" sheet tab, and emails a notification.
+  catalogue data). It handles Get Catalogue submissions: logs the request in
+  a "Catalogue Requests" sheet tab and emails a notification with the ID
+  card photo attached. Deliberately doesn't touch Google Drive at all, to
+  keep its permissions minimal.
 
   See [`apps-script/DEPLOY.md`](apps-script/DEPLOY.md) for deployment steps.
 

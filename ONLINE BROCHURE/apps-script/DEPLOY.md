@@ -1,26 +1,25 @@
 # Deploying the Get Catalogue backend
 
 This is a small Google Apps Script that receives "Get Catalogue" form
-submissions from the website: it saves the ID card photo to Drive, logs the
-request in a sheet tab, and emails you a notification. It's independent of
+submissions from the website: it logs the request in a sheet tab and emails
+you a notification with the ID card photo attached. It's independent of
 your product catalogue data — any Google Sheet works as its home, even a
 brand new blank one.
 
 ## About the permission prompt
 When you deploy, Google will ask you to authorize the script. This project
 deliberately declares the *narrowest* scopes that still do the job (via
-`appsscript.json`, step 3 below), so the prompt should say something close
-to:
-- Access to **only files this app creates** in Drive (not your whole Drive)
+`appsscript.json`, step 3 below), and deliberately avoids Drive entirely (see
+the note at the top of [`Code.gs`](./Code.gs) for why), so the prompt should
+only ask for two things:
 - Access to **only this specific spreadsheet** (not all your Sheets)
 - **Send email as you** — Apps Script's send-only mail permission; it can't
   read your inbox or contacts, only send
 
-This is normal for any script that touches Drive/Sheets/Gmail, and it's your
-own code (short enough to read in full — see [`Code.gs`](./Code.gs)) running
-under your own account. If you ever see the *broader* "all your Drive
-files" / "all your Sheets spreadsheets" wording instead, it means step 3
-(the manifest) wasn't applied — go back and redo it before authorizing.
+This is your own code (short enough to read in full) running under your own
+account. If you see a *broader* prompt than the two items above, it means
+step 3 (the manifest) wasn't applied — go back and redo it before
+authorizing.
 
 ## 1. Open the Script Editor
 1. Open the Google Sheet you want to use as the log (a new blank one is
@@ -65,16 +64,14 @@ site there.
 
 ## 6. How it works day-to-day
 When someone submits the Get Catalogue form on the website:
-- The ID card photo is saved to a Drive folder called **"Gomati Catalogue
-  Requests"** (created automatically), named with the submitter's company.
-  It's left with restricted/private sharing (not "Anyone with the link")
-  since it's someone's ID document — you'll be able to open it fine while
-  signed into the Google account the script runs as.
 - The request (name, contact number, WhatsApp number, company, address,
-  business details, and a link to the photo) is logged as a new row in a
-  **"Catalogue Requests"** tab in the sheet (created automatically).
-- You get an email notification at `gomatisanitary@gmail.com`. To change the
-  notification address, edit `NOTIFICATION_EMAIL` in `Code.gs` and redeploy.
+  business details) is logged as a new row in a **"Catalogue Requests"** tab
+  in the sheet (created automatically). The ID Card column just notes
+  whether a photo was attached — the photo itself isn't stored anywhere by
+  this script.
+- You get an email notification at `gomatisanitary@gmail.com` with the ID
+  card photo attached directly to that email. To change the notification
+  address, edit `NOTIFICATION_EMAIL` in `Code.gs` and redeploy.
 
 ## If something's not working
 - **No email/row after a submission:** open the Apps Script editor →
