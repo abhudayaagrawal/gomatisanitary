@@ -57,7 +57,7 @@ export default function Contact() {
       <section className="contact-hero">
         <div className="container">
           <span className="eyebrow">Contact Us</span>
-          <h1>Get in touch</h1>
+          <h1>Get In Touch</h1>
           <p>Questions about products, pricing or bulk orders? Send us a message or reach out directly.</p>
         </div>
       </section>
@@ -100,7 +100,7 @@ export default function Contact() {
         </div>
 
         <form className="contact-form" onSubmit={handleSubmit}>
-          <h2>Send a message</h2>
+          <h2>Send A Message</h2>
 
           <label>
             Name

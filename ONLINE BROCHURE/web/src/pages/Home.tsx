@@ -6,7 +6,7 @@ import './Home.css';
 const FEATURES = [
   {
     title: 'Wide Product Range',
-    description: 'Angle cocks, valves, shower arms, cisterns and hundreds more sanitary fittings in one place.',
+    description: 'Angle cocks, Valves, Shower arms, Cisterns and hundreds more sanitary fittings in one place.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
         <rect x="3" y="3" width="7" height="7" rx="1.5" />
@@ -47,18 +47,18 @@ export default function Home() {
           <div className="hero-copy">
             <span className="eyebrow">{BUSINESS.tagline}</span>
             <h1>
-              Quality bathroom fittings, <span className="text-accent-2">supplied in bulk</span>
+              Quality Bathroom Fittings, <span className="text-accent-2">Supplied In Bulk</span>
             </h1>
             <p className="hero-lead">
               {BUSINESS.name} is a Kathmandu-based wholesaler of sanitary hardware and bathroom fittings —
-              angle cocks, valves, shower arms, cisterns and more — for retailers and contractors.
+              Angle cocks, Valves, Shower arms, Cisterns and more — for retailers and contractors.
             </p>
             <div className="hero-actions">
               <Link to="/catalogue" className="btn btn-primary">
                 Get Catalogue
               </Link>
               <Link to="/contact" className="btn btn-secondary">
-                Get in Touch
+                Get In Touch
               </Link>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function Home() {
       <section className="cta-banner">
         <div className="container cta-banner-inner">
           <div>
-            <h2>Want to see our full range?</h2>
+            <h2>Want To See Our Full Range?</h2>
             <p>Request our catalogue and our team will share it directly with you.</p>
           </div>
           <Link to="/catalogue" className="btn btn-primary">

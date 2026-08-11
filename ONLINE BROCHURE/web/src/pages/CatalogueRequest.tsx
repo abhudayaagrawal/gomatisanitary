@@ -173,7 +173,7 @@ export default function CatalogueRequest() {
           </label>
 
           <label>
-            What does your business do? (optional)
+            What Does Your Business Do? (Optional)
             <textarea
               value={businessDetails}
               onChange={(e) => setBusinessDetails(e.target.value)}
