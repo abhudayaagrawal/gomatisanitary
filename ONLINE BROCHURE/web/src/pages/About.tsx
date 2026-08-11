@@ -34,8 +34,9 @@ export default function About() {
             </p>
             <p>
               Every product in our range is organized by group and subgroup and sold in standard carton
-              and box quantities, making it easy to plan bulk orders. Browse our full range on the{' '}
-              <Link to="/products">Products</Link> page — updated directly from our live inventory.
+              and box quantities, making it easy to plan bulk orders. To protect our wholesale pricing, we
+              share the full catalogue directly with verified businesses —{' '}
+              <Link to="/catalogue">request it here</Link>.
             </p>
           </div>
 

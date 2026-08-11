@@ -54,8 +54,8 @@ export default function Home() {
               angle cocks, valves, shower arms, cisterns and more — for retailers and contractors.
             </p>
             <div className="hero-actions">
-              <Link to="/products" className="btn btn-primary">
-                Browse Products
+              <Link to="/catalogue" className="btn btn-primary">
+                Get Catalogue
               </Link>
               <Link to="/contact" className="btn btn-secondary">
                 Get in Touch
@@ -85,11 +85,11 @@ export default function Home() {
       <section className="cta-banner">
         <div className="container cta-banner-inner">
           <div>
-            <h2>Looking for a specific product?</h2>
-            <p>Search our full catalogue by code, name, group or subgroup.</p>
+            <h2>Want to see our full range?</h2>
+            <p>Request our catalogue and our team will share it directly with you.</p>
           </div>
-          <Link to="/products" className="btn btn-primary">
-            View Full Catalogue
+          <Link to="/catalogue" className="btn btn-primary">
+            Request Catalogue
           </Link>
         </div>
       </section>

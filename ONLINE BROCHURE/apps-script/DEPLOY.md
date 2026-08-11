@@ -1,8 +1,10 @@
-# Deploying the Apps Script data API
+# Deploying the Apps Script backend
 
-This turns your "GMT BROCHURE" Google Sheet into a live JSON API the website
-reads from. You only need to do this once (and again if you ever want to
-publish a code change to `Code.gs`).
+This script is bound to your "GMT BROCHURE" Google Sheet and does two
+things: handles "Get Catalogue" form submissions from the website
+(`doPost`), and — not currently used by the site — can serve the product
+list as JSON with images re-hosted to Drive (`doGet`). You only need to
+deploy once (and again if you ever want to publish a code change).
 
 ## 1. Open the Script Editor
 1. Open the **GMT BROCHURE** spreadsheet.
@@ -23,51 +25,46 @@ publish a code change to `Code.gs`).
    - Who has access: **Anyone**
 4. Click **Deploy**.
 5. The first time, Google will ask you to authorize the script (it needs
-   access to the spreadsheet and Drive, since it re-hosts product images).
-   Review and allow it — this is your own script running under your own
-   account, so it's safe to approve.
-6. Copy the **Web app URL** shown (it ends in `/exec`). This is your
-   `VITE_SHEET_API_URL`.
+   access to the spreadsheet, Drive, and Gmail, since it saves ID card
+   photos and sends you email notifications). Review and allow it — this is
+   your own script running under your own account, so it's safe to approve.
+6. Copy the **Web app URL** shown (it ends in `/exec`).
 
 ## 4. Point the website at it
 In `web/.env` (copy from `web/.env.example`), set:
 ```
-VITE_SHEET_API_URL=https://script.google.com/macros/s/XXXXXXXX/exec
+VITE_CATALOGUE_REQUEST_API_URL=https://script.google.com/macros/s/XXXXXXXX/exec
 ```
-Rebuild/redeploy the site once after setting this — after that, no further
-redeploys are needed for data changes; the site fetches live from this URL.
+Rebuild/redeploy the site once after setting this.
 
-## 5. Your day-to-day workflow
-- **Edit text fields** (name, group, qty, etc.) in the sheet → click **Sync
-  Now** on the website. Changes show up immediately, no extra steps.
-- **Add a new product with a photo** (Insert → Image → Insert image in cell)
-  → click **Sync Now** on the website. New codes are re-hosted to a Drive
-  folder called "GMT Brochure - Web Images" (created automatically) the
-  moment they're first seen — up to 8 new photos per click (kept small so a
-  single sync can't take too long), so bulk-adding many products may take a
-  few clicks in a row (or use the menu option below to catch them all up in
-  one go).
-- **Replace the photo on an existing product** (same code, new picture) →
-  "Sync Now" will *not* pick this up on its own — to keep every sync fast
-  regardless of catalogue size, it only checks codes it's never seen before.
-  Use the sheet's **GMT Brochure → Publish All Images Now** menu (added
-  automatically once you've deployed the script) to force a full re-check
-  that also catches replaced photos.
-- For a catalogue this size (800+ products), a full first-time backfill via
-  "Publish All Images Now" can exceed Apps Script's 6-minute execution limit
-  — progress is saved every 25 images, so if it stops early with a message,
-  just run it again and it'll continue from where it left off, no work lost.
-- Do **not** delete or move the "GMT Brochure - Web Images" Drive folder or
-  the hidden `_ImageCache` sheet tab — they're how the site avoids re-uploading
-  every photo on every sync.
+## 5. How Get Catalogue requests work
+When someone submits the form on the website:
+- The ID card photo is saved to a Drive folder called **"Gomati Catalogue
+  Requests"** (created automatically), named with the submitter's company.
+  It's left with restricted/private sharing (not "Anyone with the link")
+  since it's someone's ID document — you'll be able to open it fine while
+  signed into the Google account the script runs as.
+- The request (name, contact number, WhatsApp number, company, address,
+  business details, and a link to the photo) is logged as a new row in a
+  **"Catalogue Requests"** sheet tab (created automatically).
+- You get an email notification at `gomatisanitary@gmail.com` with the same
+  details. To change the notification address, edit `NOTIFICATION_EMAIL` in
+  `Code.gs` and redeploy.
+
+## Optional: the dormant product-sync API (`doGet`)
+The site no longer uses this, but it still works if you want it for an
+internal tool later — it returns the `MASTER` tab as JSON, re-hosting
+in-cell product images to a Drive folder ("GMT Brochure - Web Images") the
+first time each product code is seen. Fetch `<your Web App URL>?debug=1` to
+sanity-check it, or use the sheet's **GMT Brochure → Publish All Images Now**
+menu item to force a full image sync. Progress is saved every 25 images, so
+if a bulk run hits Apps Script's 6-minute execution limit, just run it again
+to continue.
 
 ## If something's not working
-- **Images don't show up:** open the Apps Script editor → run `publishAllImages`
-  once manually from the toolbar (select the function, click Run) and check
-  the execution log for errors — most commonly this means an image was
-  inserted "over cells" instead of "in cell" (Insert → Image → Insert image
-  **in cell**, not "insert image over cells").
+- **No email/row after a submission:** open the Apps Script editor → **Executions**
+  (left sidebar) to see the failed run and its error.
 - **Redeploying code changes:** after editing `Code.gs`, use **Deploy → Manage
   deployments → edit (pencil) → New version → Deploy**. A brand new deployment
-  would change the `/exec` URL, so prefer versioning the existing deployment
-  instead.
+  would change the `/exec` URL (requiring you to update `VITE_CATALOGUE_REQUEST_API_URL`),
+  so prefer versioning the existing deployment instead.
