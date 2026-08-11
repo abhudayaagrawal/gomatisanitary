@@ -44,14 +44,36 @@ function saveIdCardImage(payload) {
   if (!payload.fileBase64) return '';
   var bytes = Utilities.base64Decode(payload.fileBase64);
   var blob = Utilities.newBlob(bytes, payload.fileType || 'image/jpeg', payload.fileName || 'id-card');
-  var folders = DriveApp.getFoldersByName(REQUESTS_FOLDER_NAME);
-  var folder = folders.hasNext() ? folders.next() : DriveApp.createFolder(REQUESTS_FOLDER_NAME);
+  var folder = getOrCreateRequestsFolder();
   // Intentionally left as private/restricted (default Drive sharing) since
   // this is a customer's ID document — the business owner can open it fine
   // while signed into the Google account this script runs as.
   var file = folder.createFile(blob);
   file.setName((payload.companyName || 'Unknown') + ' - ' + file.getName());
   return file.getUrl();
+}
+
+/**
+ * Remembers the request-photos folder by ID in this project's Script
+ * Properties, rather than searching Drive by name every time. This keeps
+ * the script within the narrow "drive.file" OAuth scope (only files/folders
+ * it created itself) declared in appsscript.json, instead of needing full
+ * access to every file in the account.
+ */
+function getOrCreateRequestsFolder() {
+  var props = PropertiesService.getScriptProperties();
+  var folderId = props.getProperty('REQUESTS_FOLDER_ID');
+  if (folderId) {
+    try {
+      return DriveApp.getFolderById(folderId);
+    } catch (err) {
+      // Folder was deleted or otherwise unreachable — fall through and
+      // create a new one below.
+    }
+  }
+  var folder = DriveApp.createFolder(REQUESTS_FOLDER_NAME);
+  props.setProperty('REQUESTS_FOLDER_ID', folder.getId());
+  return folder;
 }
 
 function logCatalogueRequest(payload, driveUrl) {
