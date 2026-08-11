@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
 import { BUSINESS } from '../lib/business';
+import ProductGroupsGrid from '../components/ProductGroupsGrid';
 import './Home.css';
 
 const FEATURES = [
@@ -69,6 +70,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ProductGroupsGrid />
 
       <section className="features">
         <div className="container features-grid">
