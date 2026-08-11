@@ -1,13 +1,15 @@
-# Deploying the Apps Script backend
+# Deploying the Get Catalogue backend
 
-This script is bound to your "GMT BROCHURE" Google Sheet and does two
-things: handles "Get Catalogue" form submissions from the website
-(`doPost`), and — not currently used by the site — can serve the product
-list as JSON with images re-hosted to Drive (`doGet`). You only need to
-deploy once (and again if you ever want to publish a code change).
+This is a small Google Apps Script that receives "Get Catalogue" form
+submissions from the website: it saves the ID card photo to Drive, logs the
+request in a sheet tab, and emails you a notification. It's independent of
+your product catalogue data — any Google Sheet works as its home, even a
+brand new blank one.
 
 ## 1. Open the Script Editor
-1. Open the **GMT BROCHURE** spreadsheet.
+1. Open the Google Sheet you want to use as the log (a new blank one is
+   fine — the script creates its own "Catalogue Requests" tab automatically,
+   it doesn't need any existing structure).
 2. Extensions → Apps Script. This opens a script editor bound to this sheet.
 
 ## 2. Paste the code
@@ -20,12 +22,12 @@ deploy once (and again if you ever want to publish a code change).
 1. Click **Deploy → New deployment**.
 2. Click the gear icon next to "Select type" → choose **Web app**.
 3. Fill in:
-   - Description: `GMT Brochure API`
+   - Description: `Gomati Catalogue Requests`
    - Execute as: **Me**
    - Who has access: **Anyone**
 4. Click **Deploy**.
 5. The first time, Google will ask you to authorize the script (it needs
-   access to the spreadsheet, Drive, and Gmail, since it saves ID card
+   access to this spreadsheet, Drive, and Gmail, since it saves ID card
    photos and sends you email notifications). Review and allow it — this is
    your own script running under your own account, so it's safe to approve.
 6. Copy the **Web app URL** shown (it ends in `/exec`).
@@ -35,10 +37,11 @@ In `web/.env` (copy from `web/.env.example`), set:
 ```
 VITE_CATALOGUE_REQUEST_API_URL=https://script.google.com/macros/s/XXXXXXXX/exec
 ```
-Rebuild/redeploy the site once after setting this.
+Also add the same variable in Vercel's project settings, then redeploy the
+site there.
 
-## 5. How Get Catalogue requests work
-When someone submits the form on the website:
+## 5. How it works day-to-day
+When someone submits the Get Catalogue form on the website:
 - The ID card photo is saved to a Drive folder called **"Gomati Catalogue
   Requests"** (created automatically), named with the submitter's company.
   It's left with restricted/private sharing (not "Anyone with the link")
@@ -46,25 +49,15 @@ When someone submits the form on the website:
   signed into the Google account the script runs as.
 - The request (name, contact number, WhatsApp number, company, address,
   business details, and a link to the photo) is logged as a new row in a
-  **"Catalogue Requests"** sheet tab (created automatically).
-- You get an email notification at `gomatisanitary@gmail.com` with the same
-  details. To change the notification address, edit `NOTIFICATION_EMAIL` in
-  `Code.gs` and redeploy.
-
-## Optional: the dormant product-sync API (`doGet`)
-The site no longer uses this, but it still works if you want it for an
-internal tool later — it returns the `MASTER` tab as JSON, re-hosting
-in-cell product images to a Drive folder ("GMT Brochure - Web Images") the
-first time each product code is seen. Fetch `<your Web App URL>?debug=1` to
-sanity-check it, or use the sheet's **GMT Brochure → Publish All Images Now**
-menu item to force a full image sync. Progress is saved every 25 images, so
-if a bulk run hits Apps Script's 6-minute execution limit, just run it again
-to continue.
+  **"Catalogue Requests"** tab in the sheet (created automatically).
+- You get an email notification at `gomatisanitary@gmail.com`. To change the
+  notification address, edit `NOTIFICATION_EMAIL` in `Code.gs` and redeploy.
 
 ## If something's not working
-- **No email/row after a submission:** open the Apps Script editor → **Executions**
-  (left sidebar) to see the failed run and its error.
-- **Redeploying code changes:** after editing `Code.gs`, use **Deploy → Manage
-  deployments → edit (pencil) → New version → Deploy**. A brand new deployment
-  would change the `/exec` URL (requiring you to update `VITE_CATALOGUE_REQUEST_API_URL`),
-  so prefer versioning the existing deployment instead.
+- **No email/row after a submission:** open the Apps Script editor →
+  **Executions** (left sidebar) to see the failed run and its error.
+- **Redeploying code changes:** after editing `Code.gs`, use **Deploy →
+  Manage deployments → edit (pencil) → New version → Deploy**. A brand new
+  deployment would change the `/exec` URL (requiring you to update
+  `VITE_CATALOGUE_REQUEST_API_URL` everywhere), so prefer versioning the
+  existing deployment instead.
