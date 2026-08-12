@@ -20,19 +20,20 @@
 
 .contact-body {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 2.5rem;
   padding: 3.5rem 1.5rem 4.5rem;
 }
 
 .contact-info {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
   align-content: start;
 }
 
 .info-card {
+  min-width: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem;
@@ -53,6 +54,7 @@
   color: var(--text);
   font-weight: 500;
   margin-bottom: 0.15rem;
+  overflow-wrap: break-word;
 }
 
 .info-card a:hover {
@@ -101,6 +103,8 @@
 
 .contact-form input,
 .contact-form textarea {
+  width: 100%;
+  min-width: 0;
   border: 1.5px solid var(--border);
   border-radius: 8px;
   padding: 0.65rem 0.8rem;
@@ -138,13 +142,13 @@
   font-size: 0.85rem;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 760px) {
   .contact-body {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 480px) {
   .contact-info {
     grid-template-columns: 1fr;
   }

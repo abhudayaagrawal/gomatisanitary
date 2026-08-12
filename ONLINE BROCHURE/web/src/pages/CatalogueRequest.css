@@ -39,7 +39,7 @@
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.1rem;
 }
 
@@ -50,10 +50,13 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text);
+  min-width: 0;
 }
 
 .catalogue-request-form input,
 .catalogue-request-form textarea {
+  width: 100%;
+  min-width: 0;
   border: 1.5px solid var(--border);
   border-radius: 8px;
   padding: 0.65rem 0.8rem;

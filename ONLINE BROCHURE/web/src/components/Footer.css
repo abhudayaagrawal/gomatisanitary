@@ -6,7 +6,7 @@
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1.3fr 1fr;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1fr);
   gap: 2rem;
   padding: 3.5rem 1.5rem 2.5rem;
 }
@@ -41,6 +41,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
+  min-width: 0;
 }
 
 .footer-col h4 {
@@ -55,6 +56,7 @@
   color: #cbd5e1;
   font-size: 0.9rem;
   transition: color 0.15s ease;
+  overflow-wrap: break-word;
 }
 
 .footer-col a:hover {
