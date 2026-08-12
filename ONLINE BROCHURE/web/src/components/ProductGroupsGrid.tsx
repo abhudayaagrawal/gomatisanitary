@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { PRODUCT_GROUPS } from '../lib/productGroups';
-import GroupIcon from './GroupIcon';
 import './ProductGroupsGrid.css';
 
 export default function ProductGroupsGrid() {
@@ -19,8 +18,8 @@ export default function ProductGroupsGrid() {
         <div className="groups-grid">
           {PRODUCT_GROUPS.map((g) => (
             <Link to="/catalogue" className="group-card" key={g.label}>
-              <span className="group-icon">
-                <GroupIcon icon={g.icon} />
+              <span className="group-photo">
+                <img src={`/groups/${g.image}`} alt={g.label} loading="lazy" />
               </span>
               <span className="group-label">{g.label}</span>
             </Link>

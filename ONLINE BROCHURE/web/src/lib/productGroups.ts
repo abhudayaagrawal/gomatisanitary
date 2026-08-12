@@ -1,99 +1,78 @@
-export type GroupIconKey =
-  | 'tap'
-  | 'pipe'
-  | 'shower'
-  | 'basin'
-  | 'tank'
-  | 'mirror'
-  | 'hook'
-  | 'shelf'
-  | 'towel'
-  | 'soap'
-  | 'tools'
-  | 'electric'
-  | 'jali'
-  | 'seat'
-  | 'paper'
-  | 'tumbler'
-  | 'gauge'
-  | 'part'
-  | 'grabbar'
-  | 'more';
-
 export interface ProductGroup {
   label: string;
-  icon: GroupIconKey;
+  /** Filename under /public/groups/ — a real catalogue photo, background removed. */
+  image: string;
 }
 
 // The 66 distinct GROUP values from the live catalogue, with display labels
 // (Title Case, a couple of obvious sheet typos corrected for the public
-// site) and an icon chosen for each — many groups share an icon since
-// dozens of them are close variants of the same kind of fitting.
+// site — the image filenames keep the original sheet spelling since
+// that's what the asset pipeline generated them from).
 export const PRODUCT_GROUPS: ProductGroup[] = [
-  { label: '2 In 1 Angle Cock', icon: 'tap' },
-  { label: '2 In 1 Bib Cock', icon: 'tap' },
-  { label: 'Angle Valve', icon: 'tap' },
-  { label: 'Ball Cock', icon: 'tap' },
-  { label: 'Ball Valve', icon: 'tap' },
-  { label: 'Basin And Urinal Parts', icon: 'basin' },
-  { label: 'Basin Mixer', icon: 'tap' },
-  { label: 'Bathroom Set', icon: 'shower' },
-  { label: 'Bib Cock', icon: 'tap' },
-  { label: 'Bottle Trap', icon: 'part' },
-  { label: 'Check Valve', icon: 'tap' },
-  { label: 'Cistern', icon: 'tank' },
-  { label: 'Cistern Fitting', icon: 'tank' },
-  { label: 'Clamp', icon: 'part' },
-  { label: 'Coat Hook', icon: 'hook' },
-  { label: 'Concealed Cock', icon: 'tap' },
-  { label: 'Connection Pipe', icon: 'pipe' },
-  { label: 'Corner Shelf', icon: 'shelf' },
-  { label: 'Coupling', icon: 'part' },
-  { label: 'CP Fitting Parts', icon: 'part' },
-  { label: 'CP Tube', icon: 'pipe' },
-  { label: 'Electric Items', icon: 'electric' },
-  { label: 'Flanges', icon: 'part' },
-  { label: 'Garden Tools', icon: 'tools' },
-  { label: 'Gate Valve', icon: 'tap' },
-  { label: 'Grab Bar', icon: 'grabbar' },
-  { label: 'HF Head', icon: 'shower' },
-  { label: 'Hook HF And Shower', icon: 'shower' },
-  { label: 'Jali', icon: 'jali' },
-  { label: 'Long Bend', icon: 'pipe' },
-  { label: 'Long Body', icon: 'pipe' },
-  { label: 'Mirror', icon: 'mirror' },
-  { label: 'Miscellaneous Items', icon: 'more' },
-  { label: 'Nipple', icon: 'part' },
-  { label: 'Nozzle', icon: 'part' },
-  { label: 'Paper Holder', icon: 'paper' },
-  { label: 'Pillar Cock', icon: 'tap' },
-  { label: 'Plastic Tap', icon: 'tap' },
-  { label: 'Push Cock', icon: 'tap' },
-  { label: 'RO And Tee', icon: 'part' },
-  { label: 'Seal Tape', icon: 'part' },
-  { label: 'Seat Cover', icon: 'seat' },
-  { label: 'Seat Cover Parts', icon: 'seat' },
-  { label: 'Shower', icon: 'shower' },
-  { label: 'Shower Arm', icon: 'shower' },
-  { label: 'Sink', icon: 'basin' },
-  { label: 'Sink Cock', icon: 'tap' },
-  { label: 'Sink Mixer', icon: 'tap' },
-  { label: 'Soap Dish', icon: 'soap' },
-  { label: 'Soap Dispenser', icon: 'soap' },
-  { label: 'Spindle', icon: 'part' },
-  { label: 'Spout Diverter', icon: 'part' },
-  { label: 'Swan Neck', icon: 'tap' },
-  { label: 'Tank Nipple', icon: 'tank' },
-  { label: 'Tap Fittings', icon: 'tap' },
-  { label: 'Tools', icon: 'tools' },
-  { label: 'Towel Rack', icon: 'towel' },
-  { label: 'Towel Ring', icon: 'towel' },
-  { label: 'Towel Rod', icon: 'towel' },
-  { label: 'Tumbler Holder', icon: 'tumbler' },
-  { label: 'Wall Mixer', icon: 'tap' },
-  { label: 'Wall Shelf', icon: 'shelf' },
-  { label: 'Washer', icon: 'part' },
-  { label: 'Washing Machine Tube', icon: 'pipe' },
-  { label: 'Waste Pipe', icon: 'pipe' },
-  { label: 'Water Meter', icon: 'gauge' },
+  { label: '2 In 1 Angle Cock', image: '2-in-1-angle-cock.png' },
+  { label: '2 In 1 Bib Cock', image: '2-in-1-bib-cock.png' },
+  { label: 'Angle Valve', image: 'angle-valve.png' },
+  { label: 'Ball Cock', image: 'ball-cock.png' },
+  { label: 'Ball Valve', image: 'ball-valve.png' },
+  { label: 'Basin And Urinal Parts', image: 'basin-and-urinal-parts.png' },
+  { label: 'Basin Mixer', image: 'basin-mixer.png' },
+  { label: 'Bathroom Set', image: 'bathroom-set.png' },
+  { label: 'Bib Cock', image: 'bib-cock.png' },
+  { label: 'Bottle Trap', image: 'bottle-trap.png' },
+  { label: 'Check Valve', image: 'check-valve.png' },
+  { label: 'Cistern', image: 'cistern.png' },
+  { label: 'Cistern Fitting', image: 'cistern-fitting.png' },
+  { label: 'Clamp', image: 'clamp.png' },
+  { label: 'Coat Hook', image: 'coat-hook.png' },
+  { label: 'Concealed Cock', image: 'concealed-cock.png' },
+  { label: 'Connection Pipe', image: 'connection-pipe.png' },
+  { label: 'Corner Shelf', image: 'corner-shelf.png' },
+  { label: 'Coupling', image: 'coupling.png' },
+  { label: 'CP Fitting Parts', image: 'cp-fitting-parts.png' },
+  { label: 'CP Tube', image: 'cp-tube.png' },
+  { label: 'Electric Items', image: 'electric-items.png' },
+  { label: 'Flanges', image: 'flanzes.png' },
+  { label: 'Garden Tools', image: 'garden-tools.png' },
+  { label: 'Gate Valve', image: 'gate-valve.png' },
+  { label: 'Grab Bar', image: 'grab-bar.png' },
+  { label: 'HF Head', image: 'hf-head.png' },
+  { label: 'Hook HF And Shower', image: 'hook-hf-and-shower.png' },
+  { label: 'Jali', image: 'jali.png' },
+  { label: 'Long Bend', image: 'long-bend.png' },
+  { label: 'Long Body', image: 'long-body.png' },
+  { label: 'Mirror', image: 'mirror.png' },
+  { label: 'Miscellaneous Items', image: 'miscelleanous-items.png' },
+  { label: 'Nipple', image: 'nipple.png' },
+  { label: 'Nozzle', image: 'nozzle.png' },
+  { label: 'Paper Holder', image: 'paper-holder.png' },
+  { label: 'Pillar Cock', image: 'pillar-cock.png' },
+  { label: 'Plastic Tap', image: 'plastic-tap.png' },
+  { label: 'Push Cock', image: 'push-cock.png' },
+  { label: 'RO And Tee', image: 'ro-and-tee.png' },
+  { label: 'Seal Tape', image: 'seal-tape.png' },
+  { label: 'Seat Cover', image: 'seat-cover.png' },
+  { label: 'Seat Cover Parts', image: 'seat-cover-parts.png' },
+  { label: 'Shower', image: 'shower.png' },
+  { label: 'Shower Arm', image: 'shower-arm.png' },
+  { label: 'Sink', image: 'sink.png' },
+  { label: 'Sink Cock', image: 'sink-cock.png' },
+  { label: 'Sink Mixer', image: 'sink-mixer.png' },
+  { label: 'Soap Dish', image: 'soap-dish.png' },
+  { label: 'Soap Dispenser', image: 'soap-dispenser.png' },
+  { label: 'Spindle', image: 'spindle.png' },
+  { label: 'Spout Diverter', image: 'spout-diverter.png' },
+  { label: 'Swan Neck', image: 'swan-neck.png' },
+  { label: 'Tank Nipple', image: 'tank-nipple.png' },
+  { label: 'Tap Fittings', image: 'tap-fittings.png' },
+  { label: 'Tools', image: 'tools.png' },
+  { label: 'Towel Rack', image: 'towel-rack.png' },
+  { label: 'Towel Ring', image: 'towel-ring.png' },
+  { label: 'Towel Rod', image: 'towel-rod.png' },
+  { label: 'Tumbler Holder', image: 'tumbler-holder.png' },
+  { label: 'Wall Mixer', image: 'wall-mixer.png' },
+  { label: 'Wall Shelf', image: 'wall-shelf.png' },
+  { label: 'Washer', image: 'washer.png' },
+  { label: 'Washing Machine Tube', image: 'washing-machine-tube.png' },
+  { label: 'Waste Pipe', image: 'waste-pipe.png' },
+  { label: 'Water Meter', image: 'water-meter.png' },
 ];
