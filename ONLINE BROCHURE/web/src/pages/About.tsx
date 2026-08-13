@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { BUSINESS } from '../lib/business';
+import { SEO } from '../lib/seo';
+import { usePageMeta } from '../lib/usePageMeta';
 import './About.css';
 
 const STATS = [
@@ -9,15 +11,17 @@ const STATS = [
 ];
 
 export default function About() {
+  usePageMeta(SEO.about.title, SEO.about.description);
+
   return (
     <div className="about-page">
       <section className="about-hero">
         <div className="container">
           <span className="eyebrow">About Us</span>
-          <h1>Your Wholesale Partner For Sanitary Hardware</h1>
+          <h1>Your Wholesale Partner For Sanitary Hardware In Nepal</h1>
           <p>
             {BUSINESS.name} has been supplying quality bathroom fittings and sanitary hardware to
-            retailers and contractors across Kathmandu since {BUSINESS.establishedYear}.
+            retailers and contractors across Nepal since {BUSINESS.establishedYear}.
           </p>
         </div>
       </section>
@@ -27,15 +31,16 @@ export default function About() {
           <div className="about-text">
             <h2>What We Do</h2>
             <p>
-              We are a wholesale supplier of sanitary hardware and bathroom fittings — Angle cocks, Bib
-              cocks, Ball valves, Gate valves, Shower arms, Cisterns, Basin and urinal parts, Connection
-              pipes, and much more. Our catalogue spans both manufactured and imported products, sourced
-              to give hardware shops, plumbers and contractors reliable stock at wholesale rates.
+              {BUSINESS.name} has been supplying sanitary hardware and bathroom fittings to retailers and
+              contractors across Nepal since {BUSINESS.establishedYear}. We import our range from trusted
+              manufacturers in China and India — Angle cocks, Bib cocks, Ball valves, Gate valves, Shower
+              arms, Cisterns, Basin and urinal parts, Connection pipes, and much more — including our own
+              Orion and RZ-Star brands.
             </p>
             <p>
-              Every product in our range is organized by group and subgroup and sold in standard carton
-              and box quantities, making it easy to plan bulk orders. To protect our wholesale pricing, we
-              share the full catalogue directly with verified businesses —{' '}
+              Every product is organized by group and subgroup and sold in standard carton and box
+              quantities, so bulk orders are easy to plan. To protect our wholesale pricing, we share the
+              full catalogue directly with verified businesses —{' '}
               <Link to="/catalogue">request it here</Link>.
             </p>
           </div>

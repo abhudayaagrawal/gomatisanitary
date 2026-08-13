@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpeg';
 import { BUSINESS } from '../lib/business';
+import { SEO } from '../lib/seo';
+import { usePageMeta } from '../lib/usePageMeta';
 import ProductGroupsGrid from '../components/ProductGroupsGrid';
+import BrandsSection from '../components/BrandsSection';
 import './Home.css';
 
 const FEATURES = [
   {
     title: 'Wide Product Range',
-    description: 'Angle cocks, Valves, Shower arms, Cisterns and hundreds more sanitary fittings in one place.',
+    description: 'Taps, Valves, Showers, Cisterns and hundreds more sanitary fittings, all in one place.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
         <rect x="3" y="3" width="7" height="7" rx="1.5" />
@@ -19,7 +22,7 @@ const FEATURES = [
   },
   {
     title: 'Wholesale Pricing',
-    description: 'Bulk carton and box quantities built for retailers, contractors and distributors.',
+    description: 'Sold in bulk carton and box quantities, built for retailers, contractors and distributors.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M20 7 12 3 4 7l8 4 8-4Z" />
@@ -30,7 +33,7 @@ const FEATURES = [
   },
   {
     title: `Trusted Since ${BUSINESS.establishedYear}`,
-    description: 'Over a decade supplying quality hardware to businesses across Kathmandu.',
+    description: 'Over a decade supplying quality hardware to businesses across Nepal.',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
         <path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z" />
@@ -41,6 +44,8 @@ const FEATURES = [
 ];
 
 export default function Home() {
+  usePageMeta(SEO.home.title, SEO.home.description);
+
   return (
     <div className="home">
       <section className="hero">
@@ -48,11 +53,15 @@ export default function Home() {
           <div className="hero-copy">
             <span className="eyebrow">{BUSINESS.tagline}</span>
             <h1>
-              Quality Bathroom Fittings, <span className="text-accent-2">Supplied In Bulk</span>
+              Sanitary Hardware &amp; Bathroom Fittings —{' '}
+              <span className="text-accent-2">Wholesale Supply Across Nepal</span>
             </h1>
             <p className="hero-lead">
-              {BUSINESS.name} is a Kathmandu-based wholesaler of sanitary hardware and bathroom fittings —
-              Angle cocks, Valves, Shower arms, Cisterns and more — for retailers and contractors.
+              {BUSINESS.name} is a Kathmandu-based wholesaler of sanitary hardware and bathroom fittings,
+              importing from China and India and supplying retailers, contractors and dealers across Nepal.
+              We stock 1000+ products across 66+ categories — Angle cocks, Bib cocks, Valves, Shower arms,
+              Cisterns, Basin and urinal parts, Connection pipes and more — sold in bulk carton and box
+              quantities at wholesale rates.
             </p>
             <div className="hero-actions">
               <Link to="/catalogue" className="btn btn-primary">
@@ -85,11 +94,28 @@ export default function Home() {
         </div>
       </section>
 
+      <BrandsSection />
+
+      <section className="ordering-section">
+        <div className="container">
+          <div className="groups-header">
+            <span className="eyebrow">How It Works</span>
+            <h2>How Ordering Works</h2>
+            <p>
+              We sell in any quantity — no minimum order. Orders placed in full carton quantities get
+              delivery priority and better rates. Nearby cities receive orders within 2 days; farther
+              cities across Nepal typically take 4–5 days. Every order is carefully packed and repacked
+              for safe transport and easy shelf storage.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="cta-banner">
         <div className="container cta-banner-inner">
           <div>
             <h2>Want To See Our Full Range?</h2>
-            <p>Request our catalogue and our team will share it directly with you.</p>
+            <p>Request our catalogue and our team will send it directly to you.</p>
           </div>
           <Link to="/catalogue" className="btn btn-primary">
             Request Catalogue

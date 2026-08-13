@@ -2,13 +2,23 @@ export interface ProductGroup {
   label: string;
   /** Filename under /public/groups/ — a real catalogue photo, background removed. */
   image: string;
+  /** URL slug for /products/:slug, derived from label. */
+  slug: string;
+}
+
+function slugify(label: string): string {
+  return label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-+|-+$)/g, '');
 }
 
 // The 66 distinct GROUP values from the live catalogue, with display labels
 // (Title Case, a couple of obvious sheet typos corrected for the public
 // site — the image filenames keep the original sheet spelling since
-// that's what the asset pipeline generated them from).
-export const PRODUCT_GROUPS: ProductGroup[] = [
+// that's what the asset pipeline generated them from). Slugs are derived
+// from the (corrected) label, not the image filename.
+const RAW_GROUPS: Omit<ProductGroup, 'slug'>[] = [
   { label: '2 In 1 Angle Cock', image: '2-in-1-angle-cock.png' },
   { label: '2 In 1 Bib Cock', image: '2-in-1-bib-cock.png' },
   { label: 'Angle Valve', image: 'angle-valve.png' },
@@ -76,3 +86,11 @@ export const PRODUCT_GROUPS: ProductGroup[] = [
   { label: 'Waste Pipe', image: 'waste-pipe.png' },
   { label: 'Water Meter', image: 'water-meter.png' },
 ];
+
+export const PRODUCT_GROUPS: ProductGroup[] = RAW_GROUPS.map((g) => ({ ...g, slug: slugify(g.label) }));
+
+const BY_SLUG = new Map(PRODUCT_GROUPS.map((g) => [g.slug, g]));
+
+export function getGroupBySlug(slug: string | undefined): ProductGroup | undefined {
+  return slug ? BY_SLUG.get(slug) : undefined;
+}

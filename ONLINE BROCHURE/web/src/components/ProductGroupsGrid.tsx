@@ -8,16 +8,16 @@ export default function ProductGroupsGrid() {
       <div className="container">
         <div className="groups-header">
           <span className="eyebrow">Explore Our Range</span>
-          <h2>Product Categories</h2>
+          <h2>Browse Our Product Categories</h2>
           <p>
-            {PRODUCT_GROUPS.length}+ categories of sanitary hardware and bathroom fittings — tap any
-            category to request the full catalogue.
+            {PRODUCT_GROUPS.length}+ categories of sanitary hardware and bathroom fittings, organized by
+            group. Tap any category to see what's inside and request pricing.
           </p>
         </div>
 
         <div className="groups-grid">
           {PRODUCT_GROUPS.map((g) => (
-            <Link to="/catalogue" className="group-card" key={g.label}>
+            <Link to={`/products/${g.slug}`} className="group-card" key={g.label}>
               <span className="group-photo">
                 <img src={`/groups/${g.image}`} alt={g.label} loading="lazy" />
               </span>

@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { BUSINESS } from '../lib/business';
+import { SEO } from '../lib/seo';
+import { usePageMeta } from '../lib/usePageMeta';
 import './Contact.css';
 
 const FORM_ENDPOINT = import.meta.env.VITE_CONTACT_FORM_URL as string | undefined;
@@ -8,6 +10,8 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function Contact() {
+  usePageMeta(SEO.contact.title, SEO.contact.description);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -69,6 +73,10 @@ export default function Contact() {
             <a href={BUSINESS.googleMapsUrl} target="_blank" rel="noreferrer">
               {BUSINESS.address}
             </a>
+            <p className="delivery-note">
+              We deliver across Nepal from our Kathmandu warehouse — nearby cities in 2 days, farther
+              cities in 4–5 days.
+            </p>
           </div>
           <div className="info-card">
             <h3>Call</h3>

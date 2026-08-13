@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { BUSINESS } from '../lib/business';
+import { SEO } from '../lib/seo';
+import { usePageMeta } from '../lib/usePageMeta';
 import './CatalogueRequest.css';
 
 const FORM_ENDPOINT = import.meta.env.VITE_CATALOGUE_REQUEST_API_URL as string | undefined;
@@ -20,6 +22,8 @@ function readFileAsBase64(file: File): Promise<string> {
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 export default function CatalogueRequest() {
+  usePageMeta(SEO.catalogue.title, SEO.catalogue.description);
+
   const [name, setName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [whatsappNumber, setWhatsappNumber] = useState('');
@@ -112,10 +116,12 @@ export default function CatalogueRequest() {
           <span className="eyebrow">Wholesale Access</span>
           <h1>Request Our Catalogue</h1>
           <p>
-            To protect our wholesale pricing, we share our full product catalogue directly with verified
-            retailers, contractors and businesses. Fill in your details below and our team will reach out
-            with the catalogue.
+            To protect our wholesale pricing, we share our complete catalogue — 1000+ sanitary hardware
+            and bathroom fitting products across 66+ categories — directly with verified retailers,
+            contractors and business buyers across Nepal. Fill in your details below and our team will
+            send it to you.
           </p>
+          <p className="moq-note">No minimum order — carton-quantity orders get priority delivery and better rates.</p>
         </div>
       </section>
 

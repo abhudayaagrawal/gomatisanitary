@@ -61,6 +61,13 @@
   color: var(--accent);
 }
 
+.delivery-note {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
 .map-embed {
   grid-column: 1 / -1;
   border-radius: var(--radius);

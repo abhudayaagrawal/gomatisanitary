@@ -109,6 +109,16 @@
   color: var(--text);
 }
 
+.ordering-section {
+  padding: 4rem 0;
+  background: var(--bg-alt);
+}
+
+.ordering-section .groups-header {
+  margin-bottom: 0;
+  max-width: 75ch;
+}
+
 .cta-banner {
   background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 100%);
   color: #fff;
